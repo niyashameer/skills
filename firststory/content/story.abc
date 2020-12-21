@@ -1,0 +1,71 @@
+@start
+*say
+    Hey! College reopens in two days!! Are you still planning on getting a degree?
+  *reprompt
+    College isn't all that boring. Do you still want to go to college and get a degree?
+  *then
+    hear yes, of course!, hell yeah, yeah, let's go, absolutely {
+        -> startjourney
+        }
+    hear nah, no, no I'm not, of course not, never {
+        -> cancel
+        }
+
+@cancel
+    *say
+        Oh, that's surprising! Either ways, good luck. Later skater.
+    
+@startjourney
+    *say
+        A very wise decision indeed! You have an amazing experience ahead of you. College life is going to be the best learning and fun filled journey you've ever had. I'm willing to take you through the initial and obviously the fun stages. Care to join?
+    *then
+        hear I'm down, yes, yeah, hell yeah, of course, without a doubt, Yes I'm excited {
+            -> begin
+        }
+        hear no,nah, of course not, not now, maybe later {
+            -> cancel
+        }
+
+@begin
+    *say
+        You've reached SRM Institute of Science and Technology! I've heard that the college experience in this stellar institution is bang on. I'm sure covid-19 brought all your plans to a halt but hey! That's what I'm here for. So buckle up, hold on tight this is going to be one hell of an experience. Looks like there's a fest going on. Wanna head over to the arena?
+    *then
+        hear YES, YEAH, LET'S GO, DUH, OF COURSE, I've been ready since forever, Yes please {
+            -> fest
+        }
+        
+        hear no,nah, of course not, not now, maybe later {
+            -> nofest
+        }
+
+@nofest
+    *say
+        Hey you'll get bored soon, but you can head over to your hostel room and chill with your roomie and be back once you're feeling okay. Want to go there right now?
+    *then
+        hear yes, yeah, hell yeah, of course {
+            ->hostel
+        }
+        hear no, nah, later, not now, nope {
+            ->cancel
+        }
+        
+@fest
+    *say
+        You seem excited! Now what you see is a huge arena filled with people who are either eating, dancing, singing, chilling or joking around. Everybody's having the time of their lives. When Chai Met Toast is playing one of their hits on the stage and you meet a few amazing peers that you connect with quite instantly. You seem tired, I think it's time for us to head over to hostel right now. We'll continue our journey later, okay?
+    *then
+        hear yes, yeah, sure, alright {
+        -> endstory
+        }
+@hostel
+*say
+    You meet your roommates for the very first time and both of you shy away intially but get along soon enough. Now look at you set up your room together! While making your room, you both start talking about your favourite things and realise that you actually have a lot in common. Look! it's 11 pm already. Time to go to bes child. 
+*then
+    -> endstory
+    
+    
+@endstory
+*say
+    I'm sure you had fun don't forget to drink water and take good rest and be back soon enough young lad. Bye for now!
+
+
+        
