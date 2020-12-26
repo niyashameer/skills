@@ -27,6 +27,10 @@
         }
 
 @begin
+    *show
+        template: 'default'
+        background: 'https://s3.ap-south-1.amazonaws.com/com.alexa.story1/srm.png'
+        title: 'Welcome to SRM Institute of Science and Technology'
     *say
         You've reached SRM Institute of Science and Technology! I've heard that the college experience in this stellar institution is bang on. I'm sure covid-19 brought all your plans to a halt but hey! That's what I'm here for. So buckle up, hold on tight this is going to be one hell of an experience. Looks like there's a fest going on. Wanna head over to the arena?
     *then
@@ -51,11 +55,120 @@
         
 @fest
     *say
-        You seem excited! Now what you see is a huge arena filled with people who are either eating, dancing, singing, chilling or joking around. Everybody's having the time of their lives. When Chai Met Toast is playing one of their hits on the stage and you meet a few amazing peers that you connect with quite instantly. You seem tired, I think it's time for us to head over to hostel right now. We'll continue our journey later, okay?
+        You seem excited! Now what you see is a huge arena filled with people who are either eating, dancing, singing, chilling or joking around. Everybody's having the time of their lives. When Chai Met Toast is playing one of their hits on the stage and you meet a few amazing peers that you connect with quite instantly. Wanna play a game with me? 
     *then
         hear yes, yeah, sure, alright {
-        -> endstory
+        -> game
         }
+        hear no, nah, ugh no, maybe later, nope {
+        -> nogame
+        }
+        
+@game
+    *say
+        So in this game we're going to determine if your smarter, and sharper than me, a machine by random calculations that have nothing to do with the actual situation. Ahaha you heard that right, this is just for fun! All set?
+    *then
+        hear yes, yeah, sure, alright {
+        -> gamebegin
+        }
+        hear no, nah, ugh no, maybe later, nope {
+        -> nogame
+        }
+
+@nogame
+    *say
+        You seem tired, I think it's time for us to head over to hostel right now. We'll continue our journey some other time!
+    *then 
+        -> hostel
+        
+        
+@gamebegin
+    *say
+        Let's begin! Choose left or right randomly.
+    *then
+        set studentBrain as 50
+        set machBrain as 50
+        hear right {
+        -> right
+        }
+        hear left {
+        -> left
+        }
+
+@left
+    *say
+        Mhmm you've decided to take left! Our journey ends here adios amigos.
+    *then
+        -> endstory
+        
+@calc
+    *then
+        roll 1d2
+        if rollResult == 1 {
+            decrease studentBrain by 10
+        }
+        else {
+            decrease machBrain by 10
+        }
+        >>RETURN
+        
+@right
+    *then
+        <-> calc
+        -> update
+        
+
+@update
+*say
+    Your score is {studentBrain} and machine's score is {machBrain}.
+*then
+    if studentBrain > 0 and machBrain > 0 {
+            -> right 
+    }
+    if studentBrain <= 0 {
+            -> machwon 
+    }
+    if machBrain <= 0 {
+            -> stuwon 
+    }
+    else {
+            -> none
+    }
+    
+@stuwon
+    *say
+        You won! Your score is {studentBrain} and machine's score is {machBrain}. Good job!Now let's head back to your hostel haha. Say okay if you want to or no if you don't want to.
+    *then
+        hear okay {
+        -> hostel
+        }
+        hear no {
+            ->endstory
+        }
+        
+@machwon
+    *say
+        I won! Yay!Now let's head back to your hostel haha. Say okay if you want to or no if you don't want to.
+    *then
+        hear okay {
+        -> hostel
+        }
+        hear no {
+            ->endstory
+        }
+        
+@none
+    *say
+        Whoops looks like we both lost! Your score is {studentBrain} and machine's score is {machBrain}. Now let's head back to your hostel haha. Say okay if yowant to or no to head back to the game!
+    *then
+        hear okay {
+        -> hostel
+        }
+        hear no {
+            ->gamebegin
+        }
+        
+
 @hostel
 *say
     You meet your roommates for the very first time and both of you shy away intially but get along soon enough. Now look at you set up your room together! While making your room, you both start talking about your favourite things and realise that you actually have a lot in common. Look! it's 11 pm already. Time to go to bes child. 
